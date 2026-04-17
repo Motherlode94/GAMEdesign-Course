@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity, Web & Python IA - Apprendre par la pratique</title>
+    
+    <!-- Prism.js pour la coloration syntaxique -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <!-- TON CSS ORIGINAL -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        /* Ajouts pour les nouvelles fonctionnalités */
+        .header-tools {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-tool {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .btn-tool:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Toast notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .toast {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 300px;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.3s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .toast-success { border-left: 4px solid #10b981; }
+        .toast-error { border-left: 4px solid #ef4444; }
+        .toast-warning { border-left: 4px solid #f59e0b; }
+        .toast-info { border-left: 4px solid #3b82f6; }
+        
+        .toast-icon { font-size: 1.5rem; }
+        .toast-message { font-weight: 500; color: #1f2937; }
+        
+        /* Mode sombre */
+        body.dark-mode {
+            background: #1f2937;
+            color: #f3f4f6;
+        }
+        
+        body.dark-mode .navbar {
+            background: #111827;
+            border-bottom-color: #374151;
+        }
+        
+        body.dark-mode .course-card,
+        body.dark-mode .exercise-item {
+            background: #111827;
+            border-color: #374151;
+        }
+        
+        body.dark-mode .modal-content {
+            background: #111827;
+            color: #f3f4f6;
+        }
+        
+        /* Indicateur de progression */
+        .progress-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        body.dark-mode .progress-indicator {
+            background: #111827;
+            color: #f3f4f6;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+        
+        .progress-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Outils en haut à droite -->
+    <div class="header-tools">
+        <button class="btn-tool" id="toggleTheme" title="Mode sombre/clair">🌙</button>
+        <button class="btn-tool" id="resetProgress" title="Réinitialiser la progression">🔄</button>
+    </div>
+    
+    <!-- Indicateur de progression -->
+    <div class="progress-indicator">
+        <div class="progress-text">Progression</div>
+        <div class="progress-value" id="progressDisplay">0/17 (0%)</div>
+    </div>
+    
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🎮</span>
+                <span class="logo-text">GameDev Academy</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#unity" class="nav-link active" data-section="unity">Unity C#</a></li>
+                <li><a href="#webgames" class="nav-link" data-section="webgames">Jeux HTML5</a></li>
+                <li><a href="#pythonai" class="nav-link" data-section="pythonai">Python IA</a></li>
+                <li><a href="#exercices" class="nav-link" data-section="exercices">Exercices</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- SECTION UNITY -->
+        <section id="unity" class="content-section active">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Apprendre Unity avec C#</h1>
+                    <p class="subtitle">Méthode Prototype Simple - De zéro à la création de jeux 3D</p>
+                </div>
+
+                <div class="course-grid">
+                    <!-- Chapitres Unity -->
+                    <div class="course-card" data-chapter="1">
+                        <div class="card-header">
+                            <span class="chapter-number">Chapitre 1</span>
+                            <h3>Introduction aux Scripts Unity</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Comprendre MonoBehaviour, Start() et Update()</p>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Débutant</span>
+                                <span class="duration">⏱️ 15 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-chapter="2">
+                        <div class="card-header">
+                            <span class="chapter-number">Chapitre 2</span>
+                            <h3>Le Joueur : Déplacement</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Input.GetAxis, Transform, Vector3 et Time.deltaTime</p>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Débutant</span>
+                                <span class="duration">⏱️ 20 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-chapter="3">
+                        <div class="card-header">
+                            <span class="chapter-number">Chapitre 3</span>
+                            <h3>Vie et États du Joueur</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Variables, conditions et gestion de la vie</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 25 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-chapter="4">
+                        <div class="card-header">
+                            <span class="chapter-number">Chapitre 4</span>
+                            <h3>Ennemi : Suivre et Attaquer</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>LookAt, Vector3.Distance et comportement AI basique</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 30 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-chapter="5">
+                        <div class="card-header">
+                            <span class="chapter-number">Chapitre 5</span>
+                            <h3>Animal : Fuite et Patrouille</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Comportements de fuite et mouvements aléatoires</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 25 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-chapter="6">
+                        <div class="card-header">
+                            <span class="chapter-number">Chapitre 6</span>
+                            <h3>Véhicule : Conduite Simple</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Rotation, translation et physique basique</p>
+                            <div class="card-meta">
+                                <span class="difficulty hard">Avancé</span>
+                                <span class="duration">⏱️ 35 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION JEUX HTML5 -->
+        <section id="webgames" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Créer des Jeux HTML5</h1>
+                    <p class="subtitle">JavaScript, Canvas et architecture de jeu web</p>
+                </div>
+
+                <div class="course-grid">
+                    <div class="course-card" data-web="1">
+                        <div class="card-header">
+                            <span class="chapter-number">Module 1</span>
+                            <h3>Canvas et Game Loop</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Comprendre le Canvas HTML5 et créer une boucle de jeu</p>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Débutant</span>
+                                <span class="duration">⏱️ 20 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-web="2">
+                        <div class="card-header">
+                            <span class="chapter-number">Module 2</span>
+                            <h3>Joueur et Inputs</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Gestion du clavier et déplacement 2D</p>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Débutant</span>
+                                <span class="duration">⏱️ 25 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-web="3">
+                        <div class="card-header">
+                            <span class="chapter-number">Module 3</span>
+                            <h3>Collisions et Physique</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Détection de collision et physique simple</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 30 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-web="4">
+                        <div class="card-header">
+                            <span class="chapter-number">Module 4</span>
+                            <h3>Ennemis et AI Simple</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Créer des comportements d'ennemis intelligents</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 35 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION PYTHON IA -->
+        <section id="pythonai" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Intelligence Artificielle avec Python</h1>
+                    <p class="subtitle">Pathfinding, Decision Trees et Machine Learning pour les jeux</p>
+                </div>
+
+                <div class="course-grid">
+                    <div class="course-card" data-pythonai="1">
+                        <div class="card-header">
+                            <span class="chapter-number python">Module 1</span>
+                            <h3>Introduction à l'IA de Jeu</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Bases de l'IA : décisions, états et actions</p>
+                            <div class="card-meta">
+                                <span class="difficulty easy">Débutant</span>
+                                <span class="duration">⏱️ 30 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-pythonai="2">
+                        <div class="card-header">
+                            <span class="chapter-number python">Module 2</span>
+                            <h3>Pathfinding - A* (A-Star)</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Algorithme A* pour trouver le chemin optimal</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 45 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-pythonai="3">
+                        <div class="card-header">
+                            <span class="chapter-number python">Module 3</span>
+                            <h3>Arbre de Décision</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Decision Trees pour comportements complexes</p>
+                            <div class="card-meta">
+                                <span class="difficulty medium">Intermédiaire</span>
+                                <span class="duration">⏱️ 40 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-pythonai="4">
+                        <div class="card-header">
+                            <span class="chapter-number python">Module 4</span>
+                            <h3>Q-Learning (ML)</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Machine Learning : IA qui apprend en jouant</p>
+                            <div class="card-meta">
+                                <span class="difficulty hard">Avancé</span>
+                                <span class="duration">⏱️ 60 min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION EXERCICES -->
+        <section id="exercices" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Exercices Pratiques</h1>
+                    <p class="subtitle">Mets en pratique ce que tu as appris</p>
+                </div>
+
+                <div class="exercise-selector">
+                    <button class="btn-selector active" data-type="unity">Unity</button>
+                    <button class="btn-selector" data-type="web">Web</button>
+                    <button class="btn-selector" data-type="python">Python</button>
+                </div>
+
+                <div class="exercise-list" id="unity-exercises">
+                    <div class="exercise-item" data-exercise="unity-1">
+                        <div class="exercise-header">
+                            <h3>📝 Exercice 1 : Premier Script</h3>
+                            <span class="badge">Chapitre 1</span>
+                        </div>
+                        <p class="exercise-desc">Créer un compteur qui s'affiche dans la console</p>
+                    </div>
+
+                    <div class="exercise-item" data-exercise="unity-2">
+                        <div class="exercise-header">
+                            <h3>📝 Exercice 2 : Mouvement Diagonal</h3>
+                            <span class="badge">Chapitre 2</span>
+                        </div>
+                        <p class="exercise-desc">Empêcher le joueur d'aller plus vite en diagonale</p>
+                    </div>
+                </div>
+
+                <div class="exercise-list hidden" id="web-exercises">
+                    <div class="exercise-item" data-exercise="web-1">
+                        <div class="exercise-header">
+                            <h3>📝 Exercice 1 : Canvas de Base</h3>
+                            <span class="badge">Module 1</span>
+                        </div>
+                        <p class="exercise-desc">Créer un canvas et dessiner un carré animé</p>
+                    </div>
+                </div>
+
+                <div class="exercise-list hidden" id="python-exercises">
+                    <div class="exercise-item" data-exercise="python-1">
+                        <div class="exercise-header">
+                            <h3>🐍 Exercice 1 : IA Aléatoire</h3>
+                            <span class="badge">Python Module 1</span>
+                        </div>
+                        <p class="exercise-desc">Créer une IA qui prend des décisions aléatoires</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODALS -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content large">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="exerciseModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Prism.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    
+    <!-- TES SCRIPTS ORIGINAUX -->
+    <script src="js/course.js"></script>
+    <script src="js/exercises.js"></script>
+    <script src="js/python-ai.js"></script>
+    <!-- On remplace code-formatter.js par les améliorations dans script.js -->
+    <script src="js/script.js"></script>
+</body>
+</html>
