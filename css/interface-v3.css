@@ -1,0 +1,50 @@
+/* GameDev Academy — interface 3.0, scoped to existing markup */
+:root{--ui-bg:#0b1220;--ui-card:#172337;--ui-muted:#9eacc4;--ui-border:#31425b;--ui-accent:#6871ff}
+body{margin:0!important;background:#0b1220!important;color:#eaf0ff!important;font-family:Inter,Segoe UI,Arial,sans-serif!important;line-height:1.5}
+body:not(.dark-mode){--ui-bg:#f5f7fc;--ui-card:#fff;--ui-muted:#60708a;--ui-border:#dfe5f0;color:#172238!important;background:var(--ui-bg)!important}
+*,*::before,*::after{box-sizing:border-box}
+.navbar{position:sticky;top:0;z-index:100;background:#10192a!important;border-bottom:1px solid #283951;padding:0!important;box-shadow:0 8px 32px #0002}
+body:not(.dark-mode) .navbar{background:#fff!important}
+.container{width:min(1250px,calc(100% - 48px))!important;max-width:1250px!important;margin:auto!important}
+.navbar>.container{min-height:76px;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:30px;padding-right:145px}
+.logo{display:flex!important;align-items:center!important;gap:10px;white-space:nowrap;font-weight:800;font-size:19px}
+.logo-icon{font-size:23px}.logo-text{color:inherit}
+.nav-menu{list-style:none!important;display:flex!important;align-items:center!important;gap:7px!important;margin:0!important;padding:0!important}
+.nav-menu li{list-style:none!important;margin:0!important;padding:0!important}
+.nav-menu li::marker{content:""}
+.nav-link{display:inline-flex!important;align-items:center!important;min-height:42px;padding:0 16px!important;border-radius:10px!important;text-decoration:none!important;color:inherit!important;font-size:14px;font-weight:600;transition:background .2s}
+.nav-link.active,.nav-link:hover{background:#6366f1!important;color:#fff!important}
+.header-tools{position:fixed!important;top:16px!important;right:clamp(15px,2vw,35px)!important;z-index:1200!important;display:flex!important;gap:8px!important}
+.btn-tool{height:42px;width:42px;padding:0!important;display:grid;place-items:center;border-radius:11px!important}
+.main-content{padding:52px 0 90px!important;min-height:calc(100vh - 76px)}
+.content-section{display:none!important}
+.content-section.active{display:block!important}
+.section-header{text-align:left!important;max-width:800px;margin:0 0 34px!important}
+.section-header h1{font-size:clamp(30px,3.6vw,47px)!important;letter-spacing:-.045em;line-height:1.12!important;color:inherit!important;font-weight:800;margin:0 0 12px!important}
+.section-header .subtitle{color:var(--ui-muted)!important;font-size:16px!important;margin:0!important}
+.course-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;align-items:stretch}
+.course-card{display:flex!important;flex-direction:column!important;justify-content:space-between!important;background:var(--ui-card)!important;border:1px solid var(--ui-border)!important;border-radius:17px!important;min-width:0!important;min-height:210px!important;padding:24px!important;box-shadow:0 12px 30px #00000016!important;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s!important}
+.course-card:hover{transform:translateY(-5px)!important;border-color:#818cf8!important;box-shadow:0 17px 35px #0003!important}
+.card-header{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:13px!important}
+.card-header h3{margin:0!important;color:inherit!important;font-size:20px!important;letter-spacing:-.02em;line-height:1.3!important}
+.chapter-number{display:inline-flex!important;align-items:center!important;border-radius:7px!important;background:#6366f126!important;color:#9da7ff!important;padding:5px 10px!important;font-size:12px!important;font-weight:700!important}
+body:not(.dark-mode) .chapter-number{color:#4f46e5!important}
+.card-body{margin-top:18px!important}
+.card-body p{margin:0 0 14px!important;color:var(--ui-muted)!important;font-size:14px;line-height:1.65}
+.card-meta{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;font-size:12px!important}
+.difficulty,.duration,.badge{display:inline-flex!important;align-items:center!important;padding:5px 9px!important;border-radius:6px!important;background:#ffffff0a!important;color:var(--ui-muted)!important}
+.difficulty.easy{color:#53d6aa!important;background:#10b98120!important}.difficulty.medium{color:#ffca74!important;background:#f59e0b20!important}.difficulty.hard{color:#f9a0ad!important;background:#ef444420!important}
+.progress-indicator{position:fixed!important;bottom:20px!important;left:20px!important;padding:12px 18px!important;border:1px solid var(--ui-border)!important;background:var(--ui-card)!important;color:inherit!important;min-width:150px!important;z-index:400!important;box-shadow:0 8px 30px #0002!important}
+.progress-value{color:#929aff!important}
+.exercise-selector{display:flex!important;gap:10px!important;margin:0 0 25px!important;flex-wrap:wrap}
+.exercise-list:not(.hidden){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
+.exercise-list.hidden{display:none!important}
+.exercise-item{background:var(--ui-card)!important;border:1px solid var(--ui-border)!important;border-radius:14px!important;padding:22px!important;cursor:pointer}
+.exercise-header{display:flex!important;justify-content:space-between;gap:14px;align-items:center}.exercise-header h3{margin:0!important}
+.modal{position:fixed!important;inset:0;z-index:2000;background:#030711bb;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex!important}
+.modal-content{background:var(--ui-card)!important;color:inherit!important;border:1px solid var(--ui-border);border-radius:16px!important;max-height:90vh;overflow:auto;width:min(900px,100%)!important;padding:28px!important;position:relative}
+.modal-content.large{width:min(1100px,100%)!important}.modal .close{position:absolute;top:10px;right:18px;font-size:28px;cursor:pointer}
+body:not(.dark-mode) .course-card,body:not(.dark-mode) .exercise-item,body:not(.dark-mode) .modal-content{background:#fff!important}
+@media(max-width:1050px){.navbar>.container{flex-wrap:wrap;padding:12px 115px 12px 0;gap:12px}.nav-menu{flex-wrap:wrap}.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:650px){.container{width:calc(100% - 28px)!important}.navbar>.container{padding-right:90px}.logo{font-size:15px}.nav-link{padding:8px 10px!important;font-size:12px!important;min-height:34px}.header-tools{right:7px!important;top:11px!important}.btn-tool{height:35px;width:35px}.main-content{padding-top:30px!important}.course-grid,.exercise-list:not(.hidden){grid-template-columns:1fr!important}.course-card{min-height:175px!important;padding:19px!important}.progress-indicator{position:static!important;margin:20px 14px!important}.section-header h1{font-size:30px!important}}
