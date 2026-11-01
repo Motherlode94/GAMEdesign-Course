@@ -1,0 +1,11 @@
+/* Academy code editor extension: layered Prism syntax highlighting */
+.academy-editor-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;background:var(--bg-tertiary,#222);border:1px solid var(--border-color,#555);border-radius:8px 8px 0 0;color:var(--text-secondary,#bbb);font-size:12px}
+.academy-editor-shell{position:relative;min-height:290px;border:1px solid var(--border-color,#555);border-top:0;border-radius:0 0 8px 8px;overflow:hidden;background:#171b26}
+.academy-editor-shell .academy-highlight,.academy-editor-shell .academy-overlay-input{box-sizing:border-box!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;padding:16px!important;border:0!important;border-radius:0!important;font:14px/1.55 Consolas,Monaco,monospace!important;letter-spacing:normal!important;tab-size:4!important;white-space:pre!important;word-wrap:normal!important;overflow:auto!important}
+.academy-editor-shell .academy-highlight{pointer-events:none!important;background:transparent!important;color:#e5e7eb!important;z-index:0}
+.academy-editor-shell .academy-highlight code{font:inherit!important;white-space:inherit!important}
+.academy-editor-shell .academy-overlay-input{z-index:1;resize:none!important;background:transparent!important;color:transparent!important;-webkit-text-fill-color:transparent!important;caret-color:#ffffff!important;outline:none!important}
+.academy-editor-shell .academy-overlay-input::selection{background:#4c73b077!important}
+body.dark-mode .academy-editor-shell{background:#101522}
+body:not(.dark-mode) .academy-editor-shell{background:#171b26}
+.academy-editor-toolbar button{padding:6px 12px}
